@@ -45,6 +45,12 @@ function moveOutcome() {
     let squares = document.querySelectorAll('.grid div')
     if(gameOver(squares)) {
         alert('You hit something')
+        setTimeout(() => { // reset
+            button.disabled = false
+            for(let i = 0; i < width * width; i++) {
+                squares[i].classList.remove('snake', 'snake-head', 'apple')
+            }
+        }, 2000)
         return clearInterval(interval)
     } else {
         moveSnake(squares)
