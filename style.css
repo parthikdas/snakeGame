@@ -41,16 +41,34 @@ body {
 #start:disabled {
     background: #599bcaab;
 }
+#controlButtons {
+    margin-top: .5rem;
+    display: none;
+}
+#controlButtons button{
+    background: #599bca;
+    border: none;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 1rem;
+    padding: .5rem 1rem;
+}
 .score {
     color: #fff;
     margin-bottom: 1rem;
     font-size: 2rem;
 }
-#canvas {
-    box-shadow: 0 0 .1rem .1rem #fff;
+#canvas, #video {
     position: absolute;
     top: .5rem;
     right: .5rem;
+}
+#canvas {
+    box-shadow: 0 0 .1rem .1rem #fff;
+    z-index: 2;
 }
 .blue {
     background-color: #022D36;

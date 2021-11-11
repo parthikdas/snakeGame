@@ -5,8 +5,32 @@ let width = 11, score = 0
 let currentSnake = [2,1,0], currentIndex = 0
 let direction = 1, speed = .8, intervalTime = 1000, interval = 0
 
+let video = document.querySelector('#video')
 let canvas = document.querySelector('#canvas')
 let ctx = canvas.getContext('2d')
+// Video and all
+const videoStream = () => {
+    navigator.mediaDevices.getUserMedia({
+        video: {height: window.innerHeight*0.2, width: window.innerHeight*0.2},
+        audio: false
+    })
+    .then(stream => {
+        video.srcObject = stream
+    })
+    .catch(err => {
+        canvas.style.boxShadow = 'none'
+        document.getElementById('controlButtons').style.display = 'block'
+    })
+}
+const detectFaces = async () => {
+    ctx.drawImage(video, 0, 0, 350, 250)
+}
+videoStream()
+video.addEventListener('loadeddata' , async () => {
+    //model = await blazeface.load()
+    setInterval(detectFaces, 40)
+})
+
 
 // Function to setup the game
 function setup() {
@@ -70,22 +94,34 @@ function moveSnake(squares) {
 }
 
 // Function to change the direction
+function moveRight() {
+    if((currentSnake[0]+1) % width && currentSnake[0] + 1 != currentSnake[1]) // if right exists and its not the snake 2nd piece then only go right
+        direction = 1
+}
+function moveLeft() {
+    if(currentSnake[0] % width && currentSnake[0] - 1 != currentSnake[1]) // if left exists and its not the snake 2nd piece then only go left
+        direction = -1
+}
+function moveUp() {
+    if(currentSnake[0] - width > 0 && currentSnake[0] - width != currentSnake[1]) // if top exists and its not the snake 2nd piece then only go top
+        direction = -width
+}
+function moveDown() {
+    if(currentSnake[0] + width < 121 && currentSnake[0] + width != currentSnake[1]) // if bottom exists and its not the snake 2nd piece then only go bottom
+        direction = width
+}
 document.body.onkeyup = function(e) {
     if(e.keyCode == 39) { // Right arrow key
-        if((currentSnake[0]+1) % width && currentSnake[0] + 1 != currentSnake[1]) // if right exists and its not the snake 2nd piece then only go right
-            direction = 1
+        moveRight()
     }
     else if(e.keyCode == 37) { // Left arrow key
-        if(currentSnake[0] % width && currentSnake[0] - 1 != currentSnake[1]) // if left exists and its not the snake 2nd piece then only go left
-            direction = -1
+        moveLeft()
     }
     else if(e.keyCode ==  38) { // Up arrow key
-        if(currentSnake[0] - width > 0 && currentSnake[0] - width != currentSnake[1]) // if top exists and its not the snake 2nd piece then only go top
-            direction = -width
+        moveUp()
     }
     else if(e.keyCode == 40) { // Down arrow key
-        if(currentSnake[0] + width < 121 && currentSnake[0] + width != currentSnake[1]) // if bottom exists and its not the snake 2nd piece then only go bottom
-            direction = width
+        moveDown()
     }
 }
 

@@ -8,19 +8,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <video id="video" autoplay style="display: none;"></video>
-    <canvas id="canvas"></canvas>
+    <video id="video" autoplay></video>
+    <canvas id="canvas">Your Browser does not support canvas</canvas>
     <p class="score"></p>
     <div class="grid"></div>
+    <div id="controlButtons">
+        <button id="left" onclick="moveLeft()">left</button>
+        <button id="Right" onclick="moveRight()">Right</button>
+        <button id="Up" onclick="moveUp()">Up</button>
+        <button id="Down" onclick="moveDown()">Down</button>
+    </div>
     <button id="start" onclick="start()">Start</button>
     <script src="script.js"></script>
 </body>
 </html>
-<!-- Make head of snake as rgb(74, 135, 179) -->
-
 <!-- Make a note like card and in first welcome the users then flip it to show the rules
 1. if snake touches the wall its over and it eats itself game is over
-2. in comp, u can use arrow keys and camera to move the snake and in mobile use your head to move the snake
+2. in comp, u can use arrow keys or buttons or camera to move the snake and in mobile use your head or buttons to move the snake
 Note : move your head to left to go to left like that..-->
 
 
