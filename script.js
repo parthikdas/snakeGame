@@ -4,40 +4,43 @@ let scoreBoard = document.querySelector('.score')
 let width = 11, score = 0
 let currentSnake = [2,1,0], currentIndex = 0
 let direction = 1, speed = .8, intervalTime = 1000, interval = 0
+let screenHeight = window.innerHeight, screenWidth = window.innerWidth
 
-let video = document.querySelector('#video')
-let canvas = document.querySelector('#canvas')
-let ctx = canvas.getContext('2d')
 // Video and all
-const videoStream = () => {
+let video = document.getElementById('video')
+let canvas = document.getElementById('canvas')
+let ctx = canvas.getContext('2d')
+let model
+let videoWidth = 150
+function videoStream() {
     navigator.mediaDevices.getUserMedia({
-        video: {height: window.innerHeight*0.2, width: window.innerHeight*0.2},
+        video: {height: videoWidth, width: videoWidth},
         audio: false
     })
     .then(stream => {
         video.srcObject = stream
     })
-    .catch(err => {
-        canvas.style.boxShadow = 'none'
-        document.getElementById('controlButtons').style.display = 'block'
+}
+async function detectFaces() {
+    const prediction = await model.estimateFaces(video, false)
+    ctx.drawImage(video, 0, 0, videoWidth, videoWidth)
+    prediction.forEach(pred => { // pred corresponds to 1 face
+        ctx.fillStyle = 'red'
+        pred.landmarks.forEach(landmark => {
+            ctx.fillRect(landmark[0], landmark[1], 5, 5)
+        })
     })
 }
-const detectFaces = async () => {
-    ctx.drawImage(video, 0, 0, 350, 250)
-}
 videoStream()
-video.addEventListener('loadeddata' , async () => {
-    //model = await blazeface.load()
+video.addEventListener('loadeddata', async () => {
+    model = await blazeface.load()
     setInterval(detectFaces, 40)
 })
-
 
 // Function to setup the game
 function setup() {
     // Setting size of the grid and canvas
-    let screenHeight = window.innerHeight, screenWidth = window.innerWidth
     grid.style.height = grid.style.width = (screenHeight < screenWidth ? screenHeight - screenHeight*0.2 : screenWidth - screenWidth*0.1) + 'px'
-    canvas.style.height = canvas.style.width = screenHeight*0.2 + 'px'
     scoreBoard.innerHTML = score
     // Adding the inner boxes
     for(let i = 0; i < width * width; i++) { // needed 11 to make the chess board effect

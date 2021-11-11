@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
 </head>
 <body>
     <video id="video" autoplay></video>
-    <canvas id="canvas">Your Browser does not support canvas</canvas>
+    <canvas id="canvas" height="150" width="150">Your Browser does not support canvas</canvas>
     <p class="score"></p>
     <div class="grid"></div>
     <div id="controlButtons">
@@ -25,8 +27,5 @@
 <!-- Make a note like card and in first welcome the users then flip it to show the rules
 1. if snake touches the wall its over and it eats itself game is over
 2. in comp, u can use arrow keys or buttons or camera to move the snake and in mobile use your head or buttons to move the snake
+3. Please wait till red dot shows on face then only start to use camera
 Note : move your head to left to go to left like that..-->
-
-
-
-<!-- Use this to make canvas video element movable : https://www.w3schools.com/howto/howto_js_draggable.asp -->
