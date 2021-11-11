@@ -11,9 +11,9 @@ body {
     align-items: center;
     flex-direction: column;
     background-color: #2C3E4C;
+    overflow: hidden;
 }
 .grid {
-    background: yellow;
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0 0 .1rem .1rem #fff;
@@ -22,13 +22,7 @@ body {
     height: calc(100% / 11);
     width: calc(100% / 11);
 }
-.grid div:nth-child(odd) {
-    background-color: #2C3E4C;
-}
-.grid div:nth-child(even) {
-    background-color: #022D36;
-}
-.start {
+#start {
     height: fit-content;
     width: fit-content;
     background: transparent;
@@ -41,8 +35,11 @@ body {
     margin-top: 1rem;
     color: #fff;
 }
-.start:hover {
+#start:hover {
     background: #599bca;
+}
+#start:disabled {
+    background: #599bcaab;
 }
 .score {
     color: #fff;
@@ -54,4 +51,19 @@ body {
     position: absolute;
     top: .5rem;
     right: .5rem;
+}
+.blue {
+    background-color: #022D36;
+}
+.deepblue {
+    background-color: #2C3E4C;
+}
+.snake {
+    background-color: #599bca;
+}
+.snake-head {
+    background-color: rgb(55, 136, 194);
+}
+.apple {
+    background-color: crimson;
 }
