@@ -29,6 +29,18 @@ async function detectFaces() {
         pred.landmarks.forEach(landmark => {
             ctx.fillRect(landmark[0], landmark[1], 5, 5)
         })
+        if(pred.landmarks[0][0] - pred.landmarks[4][0] < 10) { // if left eye go near left ear move left
+            moveRight() // as camera is taking mirror image so calling this instead of left
+        }
+        if(pred.landmarks[5][0] - pred.landmarks[1][0] < 10) { // if right eye go near right ear move right
+            moveLeft()
+        }
+        if(pred.landmarks[2][1] - pred.landmarks[0][1] < 10) { // if nose comes near to eye move up
+            moveUp()
+        }
+        if(pred.landmarks[3][1] - pred.landmarks[2][1] < 10) { // if nose comes near to chin move down
+            moveDown()
+        }
     })
 }
 videoStream()
